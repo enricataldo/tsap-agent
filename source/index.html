@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#07172d">
+  <title>TSAP Agent — Encontrá experiencia real</title>
+  <meta name="description" content="TSAP analiza tu pregunta y encuentra al profesional más adecuado para responderla.">
+  <style>
+    :root{--ink:#07172d;--blue:#0b61ff;--cyan:#37d8ff;--paper:#f4f8ff;--muted:#60708a;--line:#d8e4f4;--white:#fff;--ok:#087a55}
+    *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.5}
+    button,textarea{font:inherit} button{cursor:pointer} .shell{min-height:100vh;display:grid;grid-template-columns:minmax(220px,310px) 1fr}
+    aside{background:var(--ink);color:white;padding:2rem;display:flex;flex-direction:column;justify-content:space-between;overflow:hidden;position:relative}
+    aside:after{content:"";position:absolute;width:280px;height:280px;border:1px solid #ffffff21;border-radius:50%;left:-140px;bottom:-100px;box-shadow:0 0 0 45px #ffffff0b,0 0 0 90px #ffffff07}
+    .brand{display:flex;gap:.8rem;align-items:center;font-weight:900;font-size:1.45rem;letter-spacing:.04em}.mark{width:42px;height:42px;border-radius:12px;background:var(--blue);display:grid;place-items:center;box-shadow:0 10px 28px #0061ff55}.mark span{font-size:1.5rem}
+    .aside-copy{position:relative;z-index:1}.aside-copy h1{font-size:clamp(2rem,4vw,3.4rem);line-height:1.02;margin:0 0 1.25rem;letter-spacing:-.04em}.aside-copy p{color:#cbd8e9;max-width:25ch;margin:0}.privacy{position:relative;z-index:1;color:#aebdd1;font-size:.84rem;display:flex;gap:.55rem;align-items:center}.privacy:before{content:"";width:8px;height:8px;border-radius:50%;background:#4de2a7;box-shadow:0 0 0 5px #4de2a71a}
+    main{padding:clamp(1.25rem,5vw,4.5rem);display:grid;align-items:center}.workspace{width:min(840px,100%);margin:auto}.eyebrow{color:var(--blue);font-weight:800;text-transform:uppercase;letter-spacing:.12em;font-size:.78rem;margin-bottom:.75rem}.workspace h2{font-size:clamp(1.75rem,4vw,3rem);letter-spacing:-.04em;line-height:1.08;margin:0 0 .75rem}.intro{color:var(--muted);margin:0 0 1.75rem}
+    .composer{background:white;border:1px solid var(--line);border-radius:20px;padding:1rem;box-shadow:0 18px 45px #244c8512}.composer:focus-within{border-color:#8db6ff;box-shadow:0 18px 50px #0b61ff1a,0 0 0 4px #0b61ff12}textarea{display:block;width:100%;min-height:145px;border:0;resize:vertical;outline:0;color:var(--ink);padding:.4rem;background:transparent;font-size:1.06rem}textarea::placeholder{color:#8796aa}.actions{display:flex;align-items:center;justify-content:space-between;gap:1rem;border-top:1px solid #edf2f9;padding-top:.8rem}.hint{font-size:.83rem;color:#7a899d}.primary{border:0;border-radius:12px;background:var(--blue);color:white;padding:.78rem 1.15rem;font-weight:800;box-shadow:0 8px 20px #0b61ff35}.primary:hover{background:#004fdc}.primary:focus-visible,.example:focus-visible,.whatsapp:focus-visible{outline:3px solid #7fb8ff;outline-offset:3px}
+    .examples{display:flex;flex-wrap:wrap;gap:.55rem;margin-top:1rem}.example{border:1px solid var(--line);color:#41536e;background:#ffffffb3;border-radius:999px;padding:.5rem .75rem;font-size:.82rem}.example:hover{border-color:#94b9f7;color:var(--blue)}
+    #result{display:none;margin-top:1.4rem;background:var(--ink);color:white;border-radius:20px;padding:1.3rem;animation:rise .28s ease-out}#result.show{display:block}@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+    .result-head{display:flex;justify-content:space-between;align-items:start;gap:1rem}.result-label{color:#91eaff;text-transform:uppercase;letter-spacing:.12em;font-size:.72rem;font-weight:800}.score{font-weight:800;color:#b5ffdf;background:#0f4e43;padding:.32rem .55rem;border-radius:999px;font-size:.75rem}.profile{display:grid;grid-template-columns:48px 1fr;gap:.9rem;align-items:center;margin:1rem 0}.avatar{width:48px;height:48px;border-radius:14px;display:grid;place-items:center;background:linear-gradient(135deg,var(--blue),var(--cyan));font-weight:900;font-size:1.15rem}.profile h3{margin:0;font-size:1.15rem}.profile p{margin:.15rem 0 0;color:#adbed3;font-size:.9rem}.reason{background:#ffffff0c;border:1px solid #ffffff18;border-radius:12px;padding:.8rem;color:#d6e0ec;font-size:.9rem}.whatsapp{display:block;text-align:center;margin-top:1rem;border-radius:12px;background:#20bd6b;color:#042718;text-decoration:none;padding:.8rem;font-weight:900}.offline{color:#92a5bc;font-size:.75rem;text-align:center;margin:.65rem 0 0}
+    @media(max-width:760px){.shell{display:block}.shell aside{min-height:230px;padding:1.25rem}.aside-copy{margin-top:2.25rem}.aside-copy h1{font-size:2.25rem;max-width:10ch}.aside-copy p{max-width:34ch}.privacy{display:none}main{padding:1.4rem 1rem 2.5rem;align-items:start}.actions{align-items:flex-end}.hint{max-width:22ch}.primary{white-space:nowrap}}
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <aside>
+      <div class="brand"><div class="mark" aria-hidden="true"><span>T</span></div>TSAP</div>
+      <div class="aside-copy"><h1>La IA entiende. TSAP conecta.</h1><p>Preguntas reales respondidas por profesionales con experiencia.</p></div>
+      <div class="privacy" id="mode">Comprobando conexión…</div>
+    </aside>
+    <main>
+      <section class="workspace" aria-labelledby="question-title">
+        <div class="eyebrow">TSAP Agent</div>
+        <h2 id="question-title">¿Qué necesitás resolver?</h2>
+        <p class="intro">Escribí una pregunta concreta. TSAP identificará el área y encontrará el perfil más adecuado.</p>
+        <div class="composer">
+          <textarea id="question" aria-label="Tu pregunta" placeholder="Ej.: ¿Cómo calculo el área de un intercambiador de calor para pedir un presupuesto?"></textarea>
+          <div class="actions"><span class="hint">El análisis se realiza en este dispositivo.</span><button class="primary" id="analyze">Encontrar profesional</button></div>
+        </div>
+        <div class="examples" aria-label="Preguntas de ejemplo">
+          <button class="example">¿Cómo mejorar la eficiencia de una línea de producción?</button>
+          <button class="example">¿Qué controles necesita un depósito farmacéutico?</button>
+          <button class="example">¿Cómo iniciar una carrera en la industria de gelatina?</button>
+        </div>
+        <div id="result" role="status" aria-live="polite">
+          <div class="result-head"><div class="result-label">Coincidencia recomendada</div><div class="score" id="score"></div></div>
+          <div class="profile"><div class="avatar" id="avatar"></div><div><h3 id="name"></h3><p id="area"></p></div></div>
+          <div class="reason" id="reason"></div>
+          <a class="whatsapp" id="whatsapp" href="#">Continuar por WhatsApp</a>
+          <p class="offline">La selección funciona sin internet. WhatsApp requiere conexión para enviar el mensaje.</p>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script>
+    const profiles=[
+      {name:"Perfil de Producción Industrial",initials:"PI",area:"Procesos, planta, eficiencia y liderazgo operativo",keywords:["produccion","planta","eficiencia","indicador","equipo","proceso","personal","manufactura","linea","operacion"],why:"Experiencia directa gestionando operaciones, procesos productivos y equipos de planta."},
+      {name:"Perfil de Desarrollo Analítico",initials:"DA",area:"Industria farmacéutica, métodos, HPLC y validaciones",keywords:["hplc","cromatografia","validacion","analitico","farmaceutica","metodo","estabilidad","laboratorio","impureza","disolucion"],why:"Experiencia en desarrollo de métodos, validaciones, estabilidad y resolución de problemas analíticos farmacéuticos."},
+      {name:"Perfil de Logística Farmacéutica",initials:"LF",area:"Calidad, almacenamiento y productos terminados",keywords:["deposito","almacen","logistica","inventario","producto terminado","temperatura","distribucion","stock","calidad"],why:"Experiencia en calidad y operación de depósitos de productos terminados de la industria farmacéutica."},
+      {name:"Perfil de Ingeniería de Procesos",initials:"IP",area:"Operaciones unitarias, equipos y dimensionamiento",keywords:["intercambiador","calor","area","dimensionar","presupuesto","bomba","flujo","balance","operaciones unitarias","ingenieria"],why:"Perfil adecuado para llevar cálculos de ingeniería y requerimientos técnicos a decisiones prácticas de planta."},
+      {name:"Perfil de Industria de Gelatina",initials:"IG",area:"Producción de gelatina, operaciones unitarias y carrera",keywords:["gelatina","rousselot","gelnex","empleo","carrera","primer trabajo","mudanza","operaciones unitarias"],why:"Experiencia profesional en producción de gelatina, trabajo en planta y desarrollo de carrera industrial."},
+      {name:"Perfil de Sistemas de Calidad",initials:"SC",area:"Normalización, metrología y evaluación de conformidad",keywords:["norma","normalizacion","metrologia","calibracion","conformidad","iso","sistema de gestion","auditoria"],why:"Especialidad en normas, mediciones, evaluación de la conformidad y sistemas de gestión."},
+      {name:"Perfil de Agroindustria",initials:"AI",area:"Granos, sal, azúcar, alcohol y molienda",keywords:["grano","sal","azucar","alcohol","molino","molienda","fraccionamiento","agroindustria"],why:"Experiencia operativa en plantas de fraccionamiento y diferentes cadenas agroindustriales."},
+      {name:"Perfil de Mbocayá",initials:"MB",area:"Cultivo, procesamiento y comercialización del cocotero",keywords:["mbocaya","cocotero","acrocomia","cultivo","aceite vegetal","comercializacion","fruto"],why:"Conocimiento integral de la cadena del cocotero Mbocayá paraguayo, desde el cultivo hasta el mercado."},
+      {name:"Perfil Cervecero",initials:"MC",area:"Elaboración de cerveza y gestión de fábrica",keywords:["cerveza","cerveceria","fermentacion","malta","lupulo","levadura","maestro cervecero"],why:"Experiencia como maestro cervecero y gerente de una fábrica de cerveza artesanal."}
+    ];
+    const normalize=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"");
+    function route(question){
+      const text=normalize(question);let best=profiles[0],bestScore=0,hits=[];
+      for(const p of profiles){const found=p.keywords.filter(k=>text.includes(normalize(k)));const score=found.reduce((n,k)=>n+(k.includes(" ")?3:1),0);if(score>bestScore){best=p;bestScore=score;hits=found}}
+      if(bestScore===0){best={name:"Coordinación TSAP",initials:"TS",area:"Revisión y búsqueda dentro de la red profesional",why:"No encontramos una coincidencia suficientemente clara. La coordinación puede precisar la consulta y localizar el perfil más cercano."}}
+      return{profile:best,confidence:bestScore===0?"Revisión manual":bestScore>=4?"Alta afinidad":"Buena afinidad",hits};
+    }
+    const q=document.querySelector("#question"),result=document.querySelector("#result");
+    function render(value,match){const p=match.profile;document.querySelector("#score").textContent=match.confidence;document.querySelector("#avatar").textContent=p.initials;document.querySelector("#name").textContent=p.name;document.querySelector("#area").textContent=p.area;document.querySelector("#reason").textContent=p.why;const msg=`Hola, tengo una consulta para TSAP:%0A%0A${encodeURIComponent(value)}%0A%0APerfil sugerido: ${encodeURIComponent(p.name)}`;document.querySelector("#whatsapp").href=`https://wa.me/595981611917?text=${msg}`;result.classList.add("show");result.scrollIntoView({behavior:"smooth",block:"nearest"})}
+    async function analyze(){const value=q.value.trim();if(!value){q.focus();q.placeholder="Escribí primero la pregunta que querés resolver.";return}const button=document.querySelector("#analyze");button.disabled=true;button.textContent="Analizando…";try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),9000);const response=await fetch("/api/route",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({question:value}),signal:controller.signal});clearTimeout(timer);if(!response.ok)throw new Error("offline");const data=await response.json();const p=profiles.find(x=>x.name===data.profile_name);if(!p)throw new Error("unknown profile");render(value,{profile:{...p,why:data.reason||p.why},confidence:"IA · "+(data.confidence||"Alta afinidad")});document.querySelector("#mode").textContent="IA conectada"}catch(error){render(value,route(value));document.querySelector("#mode").textContent="Respaldo local activo"}finally{button.disabled=false;button.textContent="Encontrar profesional"}}
+    document.querySelector("#analyze").addEventListener("click",analyze);q.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")analyze()});document.querySelectorAll(".example").forEach(b=>b.addEventListener("click",()=>{q.value=b.textContent;analyze()}));fetch("/api/health").then(r=>{if(r.ok)document.querySelector("#mode").textContent="IA conectada";else throw 0}).catch(()=>document.querySelector("#mode").textContent="Respaldo local activo");
+  </script>
+</body>
+</html>
