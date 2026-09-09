@@ -4,13 +4,13 @@
 
 “Un estudiante puede encontrar teoría en internet, pero las preguntas de la vida real muchas veces necesitan experiencia. ¿A quién le preguntás cómo dimensionar un intercambiador para pedir un presupuesto?”
 
-## 0:15–0:30 — La propuesta
+## 0:15–0:30 — Entrada por WhatsApp
 
-“Este es TSAP. La IA no intenta reemplazar al profesional: entiende la pregunta y encuentra a la persona con la experiencia más adecuada.”
+“El estudiante no abre otra aplicación: envía su consulta al WhatsApp de TSAP. En este MVP, copio el mensaje recibido al panel. La IA no reemplaza al profesional: encuentra a la persona adecuada.”
 
 ## 0:30–1:05 — Demostración con IA
 
-Escribir: “¿Cómo calculo el área de un intercambiador de calor para pedir un presupuesto?”
+Pegar el mensaje recibido: “¿Cómo calculo el área de un intercambiador de calor para pedir un presupuesto?”
 
 “TSAP analiza la intención y compara la consulta con una red curada. En este caso selecciona Ingeniería de Procesos y explica por qué existe afinidad.”
 
@@ -18,7 +18,7 @@ Mostrar el resultado y el indicador **IA conectada**.
 
 ## 1:05–1:25 — Integración
 
-“Con un clic, TSAP prepara la pregunta y el perfil sugerido para continuar por WhatsApp, el canal donde esta comunidad ya conversa.”
+“Con un clic, TSAP prepara la derivación para que la coordinación confirme el envío al profesional. La recepción automática mediante webhook es la siguiente etapa.”
 
 Mostrar el botón sin revelar conversaciones privadas.
 
@@ -31,4 +31,3 @@ Desconectar internet o abrir la versión local.
 ## 1:42–2:00 — Cierre
 
 “TSAP convierte una red dispersa de experiencia en una puerta de entrada sencilla para los estudiantes. La IA entiende la pregunta. TSAP encuentra a la persona.”
-

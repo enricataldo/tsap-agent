@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#07172d">
-  <title>TSAP Agent — Encontrá experiencia real</title>
-  <meta name="description" content="TSAP analiza tu pregunta y encuentra al profesional más adecuado para responderla.">
+  <title>TSAP Agent — Enrutamiento desde WhatsApp</title>
+  <meta name="description" content="TSAP recibe una consulta por WhatsApp y encuentra al profesional más adecuado para responderla.">
   <style>
     :root{--ink:#07172d;--blue:#0b61ff;--cyan:#37d8ff;--paper:#f4f8ff;--muted:#60708a;--line:#d8e4f4;--white:#fff;--ok:#087a55}
     *{box-sizing:border-box} body{margin:0;background:var(--paper);color:var(--ink);font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;font-size:16px;line-height:1.5}
@@ -26,17 +26,17 @@
   <div class="shell">
     <aside>
       <div class="brand"><div class="mark" aria-hidden="true"><span>T</span></div>TSAP</div>
-      <div class="aside-copy"><h1>La IA entiende. TSAP conecta.</h1><p>Preguntas reales respondidas por profesionales con experiencia.</p></div>
+      <div class="aside-copy"><h1>La pregunta llega por WhatsApp.</h1><p>TSAP entiende el contexto y encuentra experiencia real.</p></div>
       <div class="privacy" id="mode">Comprobando conexión…</div>
     </aside>
     <main>
       <section class="workspace" aria-labelledby="question-title">
-        <div class="eyebrow">TSAP Agent</div>
-        <h2 id="question-title">¿Qué necesitás resolver?</h2>
-        <p class="intro">Escribí una pregunta concreta. TSAP identificará el área y encontrará el perfil más adecuado.</p>
+        <div class="eyebrow">Bandeja de entrada · WhatsApp</div>
+        <h2 id="question-title">Nueva consulta recibida</h2>
+        <p class="intro">MVP del hackathon: pegá el mensaje recibido en WhatsApp. TSAP analizará la consulta sin responderla y buscará el perfil más adecuado.</p>
         <div class="composer">
-          <textarea id="question" aria-label="Tu pregunta" placeholder="Ej.: ¿Cómo calculo el área de un intercambiador de calor para pedir un presupuesto?"></textarea>
-          <div class="actions"><span class="hint">El análisis se realiza en este dispositivo.</span><button class="primary" id="analyze">Encontrar profesional</button></div>
+          <textarea id="question" aria-label="Mensaje recibido por WhatsApp" placeholder="Mensaje recibido: ¿Cómo calculo el área de un intercambiador de calor para pedir un presupuesto?"></textarea>
+          <div class="actions"><span class="hint">La recepción automática por webhook es la siguiente etapa.</span><button class="primary" id="analyze">Buscar perfil</button></div>
         </div>
         <div class="examples" aria-label="Preguntas de ejemplo">
           <button class="example">¿Cómo mejorar la eficiencia de una línea de producción?</button>
@@ -47,8 +47,8 @@
           <div class="result-head"><div class="result-label">Coincidencia recomendada</div><div class="score" id="score"></div></div>
           <div class="profile"><div class="avatar" id="avatar"></div><div><h3 id="name"></h3><p id="area"></p></div></div>
           <div class="reason" id="reason"></div>
-          <a class="whatsapp" id="whatsapp" href="#">Continuar por WhatsApp</a>
-          <p class="offline">La selección funciona sin internet. WhatsApp requiere conexión para enviar el mensaje.</p>
+          <a class="whatsapp" id="whatsapp" href="#">Preparar derivación por WhatsApp</a>
+          <p class="offline">El agente selecciona; la coordinación de TSAP confirma el envío al profesional.</p>
         </div>
       </section>
     </main>
@@ -74,7 +74,7 @@
     }
     const q=document.querySelector("#question"),result=document.querySelector("#result");
     function render(value,match){const p=match.profile;document.querySelector("#score").textContent=match.confidence;document.querySelector("#avatar").textContent=p.initials;document.querySelector("#name").textContent=p.name;document.querySelector("#area").textContent=p.area;document.querySelector("#reason").textContent=p.why;const msg=`Hola, tengo una consulta para TSAP:%0A%0A${encodeURIComponent(value)}%0A%0APerfil sugerido: ${encodeURIComponent(p.name)}`;document.querySelector("#whatsapp").href=`https://wa.me/595981611917?text=${msg}`;result.classList.add("show");result.scrollIntoView({behavior:"smooth",block:"nearest"})}
-    async function analyze(){const value=q.value.trim();if(!value){q.focus();q.placeholder="Escribí primero la pregunta que querés resolver.";return}const button=document.querySelector("#analyze");button.disabled=true;button.textContent="Analizando…";try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),9000);const response=await fetch("/api/route",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({question:value}),signal:controller.signal});clearTimeout(timer);if(!response.ok)throw new Error("offline");const data=await response.json();const p=profiles.find(x=>x.name===data.profile_name);if(!p)throw new Error("unknown profile");render(value,{profile:{...p,why:data.reason||p.why},confidence:"IA · "+(data.confidence||"Alta afinidad")});document.querySelector("#mode").textContent="IA conectada"}catch(error){render(value,route(value));document.querySelector("#mode").textContent="Respaldo local activo"}finally{button.disabled=false;button.textContent="Encontrar profesional"}}
+    async function analyze(){const value=q.value.trim();if(!value){q.focus();q.placeholder="Pegá primero el mensaje recibido por WhatsApp.";return}const button=document.querySelector("#analyze");button.disabled=true;button.textContent="Buscando…";try{const controller=new AbortController();const timer=setTimeout(()=>controller.abort(),9000);const response=await fetch("/api/route",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({question:value}),signal:controller.signal});clearTimeout(timer);if(!response.ok)throw new Error("offline");const data=await response.json();const p=profiles.find(x=>x.name===data.profile_name);if(!p)throw new Error("unknown profile");render(value,{profile:{...p,why:data.reason||p.why},confidence:"IA · "+(data.confidence||"Alta afinidad")});document.querySelector("#mode").textContent="IA conectada"}catch(error){render(value,route(value));document.querySelector("#mode").textContent="Respaldo local activo"}finally{button.disabled=false;button.textContent="Buscar perfil"}}
     document.querySelector("#analyze").addEventListener("click",analyze);q.addEventListener("keydown",e=>{if((e.ctrlKey||e.metaKey)&&e.key==="Enter")analyze()});document.querySelectorAll(".example").forEach(b=>b.addEventListener("click",()=>{q.value=b.textContent;analyze()}));fetch("/api/health").then(r=>{if(r.ok)document.querySelector("#mode").textContent="IA conectada";else throw 0}).catch(()=>document.querySelector("#mode").textContent="Respaldo local activo");
   </script>
 </body>

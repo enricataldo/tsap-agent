@@ -10,17 +10,18 @@ Los estudiantes pueden encontrar teoría en buscadores, libros o chatbots, pero 
 
 ## Solución
 
-1. El estudiante escribe una pregunta concreta.
-2. TSAP analiza la intención y el contexto.
-3. El agente compara la consulta con una red curada de profesionales.
-4. Recomienda el perfil más adecuado y explica el motivo.
-5. Prepara la derivación para continuar por WhatsApp.
+1. El estudiante envía una pregunta concreta al WhatsApp de TSAP.
+2. En el MVP, la coordinación pega el mensaje recibido en el panel.
+3. TSAP analiza la intención y el contexto.
+4. El agente compara la consulta con una red curada de profesionales.
+5. Recomienda el perfil más adecuado y explica el motivo.
+6. Prepara la derivación para continuar por WhatsApp.
 
 TSAP no reemplaza al profesional ni responde por él: reduce la fricción para encontrar a la persona indicada.
 
 ## Arquitectura
 
-- Interfaz web responsive en HTML, CSS y JavaScript.
+- Panel web responsive que representa la bandeja de entrada de WhatsApp.
 - OpenAI Responses API con salida estructurada para el enrutamiento en línea.
 - Respaldo local explicable para funcionar sin conexión.
 - Clave de API protegida como variable del servidor.
@@ -41,7 +42,7 @@ El servidor requiere `OPENAI_API_KEY`. Opcionalmente, `OPENAI_MODEL` permite cam
 
 ## Alcance del hackathon
 
-El MVP demuestra la comprensión, selección y derivación. Una siguiente etapa incorporará perfiles administrables, consentimiento de los participantes, historial de consultas y automatización bidireccional con WhatsApp.
+El MVP demuestra la comprensión, selección y derivación. La entrada comienza realmente en WhatsApp, pero el mensaje se pega manualmente en el panel durante la demostración. Una siguiente etapa incorporará recepción automática mediante webhook, perfiles administrables, consentimiento, historial y automatización bidireccional.
 
 ## Autor
 
